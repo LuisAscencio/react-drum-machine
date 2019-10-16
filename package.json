@@ -1,0 +1,37 @@
+{
+  "name": "granular-test1",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "granular-js": "^0.6.0",
+    "notefromfreq": "^1.0.0",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "react-rotary-knob": "^1.1.7",
+    "react-rotary-knob-skin-pack": "git+https://github.com/hugozap/react-rotary-knob-skin-pack.git",
+    "react-scripts": "3.2.0",
+    "tone": "^13.8.25"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
