@@ -1,5 +1,5 @@
 import React from "react";
-import Tone from "tone";
+// import Tone from "tone";
 import { Knob } from "react-rotary-knob";
 import * as skins from "react-rotary-knob-skin-pack";
 

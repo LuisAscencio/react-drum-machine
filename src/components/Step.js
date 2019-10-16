@@ -1,6 +1,13 @@
 import React from "react";
 
 class Step extends React.Component {
+  handleMouse = e => {
+    console.log(e.type);
+    if (this.props.mouse) {
+      this.props.clickHandler(e);
+    }
+  };
+
   render() {
     let style = {
       width: "35px",
@@ -20,6 +27,7 @@ class Step extends React.Component {
         data-id={this.props.id}
         style={style}
         onClick={this.props.clickHandler}
+        onMouseOver={this.handleMouse}
       ></div>
     );
   }

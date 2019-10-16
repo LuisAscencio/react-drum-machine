@@ -1,8 +1,8 @@
 import React from "react";
 import Tone from "tone";
 // import Snare from "../components/Snare";
-import Hihat1 from "../components/Hihat1";
-import Hihat2 from "../components/Hihat2";
+// import Hihat1 from "../components/Hihat1";
+// import Hihat2 from "../components/Hihat2";
 import KickEnvelopeContainer from "./KickEnvelopeContainer";
 import KickOscControlsContainer from "./KickOscControlsContainer";
 import SnareEnvelopeContainer from "./SnareEnvelopeContainer";
@@ -18,13 +18,13 @@ class InstrumentsContainer extends React.Component {
       hh1Button: false,
       hh2Button: false,
       ///Kick params:::
-      // kickAttack: 0.001,
-      // kickDecay: 0.2,
-      // kickSustain: 0.002,
-      // kickRelease: 1,
-      // kickPitchDecay: 0.05,
-      // KickOscType: "sine",
-      // kickNote: 32.7,
+      kickAttack: 0.001,
+      kickDecay: 0.2,
+      kickSustain: 0.002,
+      kickRelease: 1,
+      kickPitchDecay: 0.05,
+      KickOscType: "sine",
+      kickNote: 32.7,
 
       ////Snare params::
       snarePan: 0.2,
@@ -35,33 +35,26 @@ class InstrumentsContainer extends React.Component {
       snareNoiseType: "brown"
     };
 
-    this.kickAttack = 0.001;
-    // kickDecay: 0.2,
-    // kickSustain: 0.002,
-    // kickRelease: 1,
-    // kickPitchDecay: 0.05,
-    // KickOscType: "sine",
-    // kickNote: 32.7,
     ///Kick instance::
-    this.kick = new Tone.MembraneSynth().toMaster();
+    // this.kick = new Tone.MembraneSynth().toMaster();
 
     ///Snare instance:::;
-    this.snarePan = new Tone.Panner({
-      // pan: this.state.snarePan,
-      // volume: this.state.snareVolume,
-      // mute: false
-    }).toMaster();
+    //   this.snarePan = new Tone.Panner({
+    //     // pan: this.state.snarePan,
+    //     // volume: this.state.snareVolume,
+    //     // mute: false
+    //   }).toMaster();
 
-    this.snare = new Tone.NoiseSynth({
-      // noise: {
-      //   type: this.state.snareNoiseType
-      // },
-      // envelope: {
-      //   attack: this.state.snareAttack,
-      //   decay: this.state.snareDecay,
-      //   sustain: this.state.snareSustain
-      // }
-    }).connect(this.snarePan);
+    //   this.snare = new Tone.NoiseSynth({
+    //     // noise: {
+    //     //   type: this.state.snareNoiseType
+    //     // },
+    //     // envelope: {
+    //     //   attack: this.state.snareAttack,
+    //     //   decay: this.state.snareDecay,
+    //     //   sustain: this.state.snareSustain
+    //     // }
+    //   }).connect(this.snarePan);
   }
 
   /// Sound settings methods:::
@@ -108,9 +101,8 @@ class InstrumentsContainer extends React.Component {
   /// Kick methods::::
 
   kickAttackHandler = val => {
-    // this.setState({ kickAttack: val });
+    this.setState({ kickAttack: val });
     // console.log(this.state.kickAttack);
-    this.kickAttack = val;
   };
 
   kickDecayHandler = val => {
@@ -178,14 +170,15 @@ class InstrumentsContainer extends React.Component {
   };
 
   kickHandler = () => {
+    let kick = new Tone.MembraneSynth().toMaster();
     /// Envelope params::
-    this.kick.envelope.attack = this.kickAttack;
-    // this.kick.envelope.decay = this.state.kickDecay;
-    // this.kick.envelope.sustain = this.state.kickSustain;
-    // this.kick.envelope.release = this.state.kickRelease;
+    kick.envelope.attack = this.state.kickAttack;
+    kick.envelope.decay = this.state.kickDecay;
+    kick.envelope.sustain = this.state.kickSustain;
+    kick.envelope.release = this.state.kickRelease;
     // /// Osc params:::
-    // this.kick.pitchDecay = this.state.kickPitchDecay;
-    // this.kick.oscillator.type = this.state.KickOscType;
+    kick.pitchDecay = this.state.kickPitchDecay;
+    kick.oscillator.type = this.state.KickOscType;
 
     ///Convert freq to note:::
     let frequency = this.state.kickNote;
@@ -198,17 +191,21 @@ class InstrumentsContainer extends React.Component {
     let foundNote = note + index;
 
     // console.log(foundNote);
-    this.kick.triggerAttackRelease("c1", "8n");
+    kick.triggerAttackRelease(foundNote, "8n");
   };
 
   snareHandler = () => {
-    this.snare.volume.value = this.state.snareVolume;
-    this.snarePan.pan.value = this.state.snarePan;
-    this.snare.noise.type = this.state.snareNoiseType;
-    this.snare.envelope.attack = this.state.snareAttack;
-    this.snare.envelope.decay = this.state.snareDecay;
-    this.snare.envelope.sustain = this.state.snareSustain;
-    this.snare.triggerAttackRelease("8n");
+    let snarePan = new Tone.Panner({}).toMaster();
+
+    let snare = new Tone.NoiseSynth({}).connect(snarePan);
+
+    snare.volume.value = this.state.snareVolume;
+    snarePan.pan.value = this.state.snarePan;
+    snare.noise.type = this.state.snareNoiseType;
+    snare.envelope.attack = this.state.snareAttack;
+    snare.envelope.decay = this.state.snareDecay;
+    snare.envelope.sustain = this.state.snareSustain;
+    snare.triggerAttackRelease("8n");
   };
 
   render() {
@@ -234,7 +231,7 @@ class InstrumentsContainer extends React.Component {
               <div className="container">
                 <div>
                   <KickEnvelopeContainer
-                    kickAttack={this.kickAttack}
+                    kickAttack={this.state.kickAttack}
                     kickAttackHandler={this.kickAttackHandler}
                     ///
                     kickDecay={this.state.kickDecay}
@@ -288,8 +285,8 @@ class InstrumentsContainer extends React.Component {
                 </div>
               </div>
             ) : null}
-            {this.state.hh1Button ? <Hihat1 /> : null}
-            {this.state.hh2Button ? <Hihat2 /> : null}
+            {/* {this.state.hh1Button ? <Hihat1 /> : null}
+            {this.state.hh2Button ? <Hihat2 /> : null} */}
             {/* <Kick time={this.props} />
             <Snare />
             <Hihat1 />
@@ -298,7 +295,7 @@ class InstrumentsContainer extends React.Component {
             <SequencerContainer
               kickHandler={this.kickHandler}
               snareHandler={this.snareHandler}
-              time={this.props.time}
+              // time={this.props.time}
             />
           </div>
         </h1>

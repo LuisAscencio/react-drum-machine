@@ -179,6 +179,9 @@ class StepSequencer extends React.Component {
                 clicked={this.state[i]}
                 borderColor={this.state[i + 100]}
                 color={this.props.color}
+                mouse={this.props.mouse}
+                mouseChangeDown={this.props.mouseChangeDown}
+                mouseChangeUp={this.props.mouseChangeUp}
               />
             );
           })}
