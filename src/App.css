@@ -26,7 +26,7 @@
   transition: 0.3s;
   border-radius: 5px; /* 5px rounded corners */
   width: 200px;
-  height: 350px;
+  height: 380px;
   background-color: cornflowerblue;
 }
 .kickCard {
@@ -34,8 +34,16 @@
   transition: 0.3s;
   border-radius: 5px; /* 5px rounded corners */
   width: 200px;
-  height: 350px;
-  background-color: rgb(212, 45, 87);
+  height: 380px;
+  background-color: rgb(23, 62, 67);
+}
+.tomCard {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  border-radius: 5px; /* 5px rounded corners */
+  width: 200px;
+  height: 380px;
+  background-color: rgb(142, 83, 120);
 }
 
 .snareCard {
@@ -43,8 +51,32 @@
   transition: 0.3s;
   border-radius: 5px; /* 5px rounded corners */
   width: 200px;
-  height: 350px;
-  background-color: rgb(240, 178, 8);
+  height: 380px;
+  background-color: rgb(250, 229, 150);
+}
+.hH1Card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  border-radius: 5px; /* 5px rounded corners */
+  width: 200px;
+  height: 380px;
+  background-color: rgb(63, 176, 172);
+}
+.hH2Card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  border-radius: 5px; /* 5px rounded corners */
+  width: 200px;
+  height: 380px;
+  background-color: rgb(158, 225, 186);
+}
+.percCard {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  border-radius: 5px; /* 5px rounded corners */
+  width: 200px;
+  height: 380px;
+  background-color: rgb(249, 207, 104);
 }
 
 .column {
@@ -90,11 +122,51 @@
 
 .title {
   font-size: 15px;
-  background-color: whitesmoke;
+  /* background-color: whitesmoke; */
 
   margin-top: 5px;
 }
 
 .all {
   /* background-image: url("./322636.jpg"); */
+  margin-left: 0.2em;
+  margin-top: 0.3em;
+}
+
+.fa {
+  font-size: "30px";
+}
+
+.mainCont {
+  display: flex;
+  flex-direction: row;
+}
+
+.seq {
+  margin-top: -36px;
+}
+
+.seqBox {
+  margin-top: -5px;
+}
+
+.seqReset {
+  margin-left: 5px;
+}
+
+.fontColor {
+  font-size: 9px;
+  color: whitesmoke;
+}
+
+.titleWhite {
+  font-size: 15px;
+
+  color: whitesmoke;
+  margin-top: 5px;
+}
+.backWhite {
+  font-size: 15px;
+
+  margin-top: 5px;
 }

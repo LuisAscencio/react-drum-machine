@@ -7,37 +7,36 @@ class Trans extends React.Component {
     super(props);
 
     Transport.bpm.value = 200;
-    // Transport.schedule(this.startLoop, "0");
-    // Transport.loop = true;
-    // Transport.loopEnd = "4n";
+
     this.state = {
-      // currentBeat: [],
-      // beat: 0,
-      // tick: 0,
-      // time: 0,
-      reset: false
+      reset: false,
+      start: false
+    };
+    this.style = {
+      fontSize: "40px",
+      borderStyle: "solid",
+      borderWidth: "3px",
+      outline: 0
+    };
+    this.colorR = {
+      color: "rgb(142, 83, 120)"
+    };
+    this.colorG = {
+      color: "rgb(23, 62, 67)"
     };
   }
 
   startTransportHandler = () => {
-    // let loopBeat = new Loop(this.song, "8n");
-    Transport.start("+.2");
-    // loopBeat.start(0);
+    Transport.start("+.3");
+    this.setState({
+      start: true
+    });
   };
   stopTransportHandler = () => {
     Transport.stop();
-  };
-
-  song = time => {
-    // console.log("time:", time);
-    // let currentBeat = Transport.position.split(":");
-    // console.log("current beat", currentBeat);
-    // this.setState({
-    //   currentBeat: currentBeat,
-    //   beat: currentBeat[0],
-    //   tick: currentBeat[1],
-    //   time: currentBeat[2]
-    // });
+    this.setState({
+      start: false
+    });
   };
 
   resetHandler = () => {
@@ -50,12 +49,20 @@ class Trans extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.startTransportHandler} type="button">
-          Start
-        </button>
-
-        <button onClick={this.stopTransportHandler} type="button">
-          Stop
+        <button
+          style={this.style}
+          onClick={
+            this.state.start
+              ? this.stopTransportHandler
+              : this.startTransportHandler
+          }
+          type="button"
+        >
+          {this.state.start ? (
+            <i className="fa fa-stop" style={this.colorR}></i>
+          ) : (
+            <i className="fa fa-play" style={this.colorG}></i>
+          )}
         </button>
 
         <div>

@@ -6,7 +6,7 @@ const SnareEnvelopeContainer = props => {
     <div className="snareCard">
       <div className="column">
         <div className="title">
-          <small className="title">Envelope</small>
+          <small className="title">AmpEnv</small>
         </div>
         <Snare
           knobs="envelope"

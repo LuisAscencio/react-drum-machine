@@ -68,7 +68,7 @@ class StepSequencer extends React.Component {
   };
 
   stepHandler = val => {
-    console.log(Math.trunc(val));
+    // console.log(Math.trunc(val));
     this.setState({ val: Math.trunc(val) });
     // console.log(this.state.val);
     this.count = Math.trunc(val) - 1;
@@ -80,22 +80,6 @@ class StepSequencer extends React.Component {
   };
 
   checkStep = time => {
-    // console.log("yey", this.state[this.index + 100], this.index + 100);
-    // console.log(this.index, this.count);
-    // this.setState({
-    //   [this.index + 16]: false
-    // });
-
-    // this.setState({
-    //   background: [...this.state.background, ]
-    // });
-    console.log(this.count);
-    console.log("index:", this.index);
-    // if (this.index + this.count + 101) {
-    //   this.setState({
-    //     [this.index + this.count + 101]: false
-    //   });
-    // }
     this.setState({
       100: false,
       101: false,
@@ -117,12 +101,8 @@ class StepSequencer extends React.Component {
     this.setState({
       [this.index + 100]: !this.state[this.index + 100]
     });
-    // this.setState({
-    //   [this.index + 100]: !this.state[this.index + 100]
-    // });
 
     if (this.state[this.index] === true) {
-      // console.log("trig");
       this.props.triggerHandler();
     }
 
@@ -138,14 +118,12 @@ class StepSequencer extends React.Component {
   render() {
     return (
       <div>
-        {/* <button onClick={this.resetHandler} type="button">
-          Reset
-        </button> */}
         <div
           style={{
             flex: 1,
             flexDirection: "row",
             width: "890px",
+            borderRadius: "5px",
             padding: "10px",
             margin: "5px",
             border: `${this.props.color}`

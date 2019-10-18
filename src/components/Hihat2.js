@@ -1,43 +1,142 @@
 import React from "react";
-import "../App.css";
-import Tone from "tone";
+import { Knob } from "react-rotary-knob";
+import * as skins from "react-rotary-knob-skin-pack";
 
 class Hihat2 extends React.Component {
-  state = {
-    pan: -0.3
-  };
-
-  clickHandler = () => {
-    // let hithatPan = new Tone.PanVol({
-    //   pan: 0.35
-    // }).toMaster();
-    let PanVol = new Tone.PanVol({
-      pan: -0.5,
-      volume: -10,
-      mute: false
-    }).toMaster();
-
-    let hihat2 = new Tone.MetalSynth({
-      frequency: 400,
-      envelope: {
-        attack: 0.01,
-        decay: 0.01,
-        release: 0.005
-      },
-      harmonicity: 1.1,
-      modulationIndex: 24,
-      resonance: 4000,
-      octaves: 2.5
-    }).connect(PanVol);
-    hihat2.triggerAttackRelease("8n");
-  };
-
   render() {
     return (
       <div className="App">
-        <button onClick={this.clickHandler} type="button">
-          Hi hat2
-        </button>
+        {this.props.knobs === "envelope" ? (
+          <div>
+            {/* Attack Knob:: */}
+
+            <div className="knob">
+              <small className="knobText">Attack</small>
+              <Knob
+                skin={skins.s16}
+                unlockDistance={30}
+                onChange={this.props.hH2AttackHandler}
+                min={0.0}
+                max={0.09}
+                clampMax={180}
+                rotateDegrees={270}
+                value={this.props.hH2Attack}
+              />
+            </div>
+
+            {/* Decay Knob:: */}
+            <div className="knob">
+              <small className="knobText">Decay</small>
+              <Knob
+                skin={skins.s16}
+                unlockDistance={30}
+                onChange={this.props.hH2DecayHandler}
+                min={0}
+                max={0.5}
+                clampMax={180}
+                rotateDegrees={270}
+                value={this.props.hH2Decay}
+              />
+            </div>
+            {/* Release Knob:: */}
+            <div className="knob">
+              <small className="knobText">Release</small>
+              <Knob
+                skin={skins.s16}
+                unlockDistance={30}
+                onChange={this.props.hH2ReleaseHandler}
+                min={0.0}
+                max={0.5}
+                clampMax={180}
+                rotateDegrees={270}
+                value={this.props.hH2Release}
+              />
+            </div>
+
+            {/* Harmonicity Knob:: */}
+            <div className="knob">
+              <small className="knobText">Harmonicity</small>
+              <Knob
+                skin={skins.s16}
+                unlockDistance={30}
+                onChange={this.props.hH2HarmonicityHandler}
+                min={0.0}
+                max={6}
+                clampMax={180}
+                rotateDegrees={270}
+                value={this.props.hH2Harmonicity}
+              />
+            </div>
+          </div>
+        ) : null}
+
+        {this.props.knobs === "osc" ? (
+          <div>
+            {/* Pitch Decay Knob:: */}
+
+            <div className="knob">
+              <small className="knobText">Volume</small>
+              <Knob
+                skin={skins.s16}
+                unlockDistance={30}
+                onChange={this.props.hH2VolumeHandler}
+                min={-25}
+                max={0}
+                clampMax={180}
+                rotateDegrees={270}
+                value={this.props.hH2Volume}
+              />
+            </div>
+
+            {/* Pan Knob::*/}
+
+            <div className="knob">
+              <small className="knobText">Pan</small>
+              <Knob
+                skin={skins.s16}
+                unlockDistance={30}
+                onChange={this.props.hH2PanHandler}
+                min={-1}
+                max={1}
+                clampMax={180}
+                rotateDegrees={270}
+                value={this.props.hH2Pan}
+              />
+            </div>
+
+            {/* Frequency Knob::*/}
+
+            <div className="knob">
+              <small className="knobText">Frequency</small>
+              <Knob
+                skin={skins.s16}
+                unlockDistance={30}
+                onChange={this.props.hH2FrequencyHandler}
+                min={0}
+                max={0.5}
+                clampMax={180}
+                rotateDegrees={270}
+                value={this.props.hH2Frequency}
+              />
+            </div>
+
+            {/* Resonance Knob::*/}
+
+            <div className="knob">
+              <small className="knobText">Resonance</small>
+              <Knob
+                skin={skins.s16}
+                unlockDistance={30}
+                onChange={this.props.hH2ResonanceHandler}
+                min={1000}
+                max={5000}
+                clampMax={180}
+                rotateDegrees={270}
+                value={this.props.hH2Resonance}
+              />
+            </div>
+          </div>
+        ) : null}
       </div>
     );
   }

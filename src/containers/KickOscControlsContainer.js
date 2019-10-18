@@ -5,8 +5,8 @@ const KickOscControlsContainer = props => {
   return (
     <div className="kickCard">
       <div className="column">
-        <div className="title">
-          <small className="title">Oscillator</small>
+        <div className="backWhite">
+          <small className="titleWhite">Oscillator</small>
         </div>
         <Kick
           knobs="osc"
@@ -15,6 +15,8 @@ const KickOscControlsContainer = props => {
           kickOscTypeHandler={props.kickOscTypeHandler}
           kickNote={props.kickNote}
           kickNoteHandler={props.kickNoteHandler}
+          kickVolume={props.kickVolume}
+          kickVolumeHandler={props.kickVolumeHandler}
         />
       </div>
     </div>

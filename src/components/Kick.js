@@ -1,5 +1,5 @@
 import React from "react";
-// import Tone from "tone";
+
 import { Knob } from "react-rotary-knob";
 import * as skins from "react-rotary-knob-skin-pack";
 
@@ -16,7 +16,7 @@ class Kick extends React.Component {
             {/* Attack Knob:: */}
 
             <div className="knob">
-              <small className="knobText">Attack</small>
+              <small className="fontColor">Attack</small>
               <Knob
                 skin={skins.s16}
                 unlockDistance={30}
@@ -31,7 +31,7 @@ class Kick extends React.Component {
 
             {/* Decay Knob:: */}
             <div className="knob">
-              <small className="knobText">Decay</small>
+              <small className="fontColor">Decay</small>
               <Knob
                 skin={skins.s16}
                 unlockDistance={30}
@@ -45,7 +45,7 @@ class Kick extends React.Component {
             </div>
             {/* Sustain Knob:: */}
             <div className="knob">
-              <small className="knobText">Sustain</small>
+              <small className="fontColor">Sustain</small>
               <Knob
                 skin={skins.s16}
                 unlockDistance={30}
@@ -60,7 +60,7 @@ class Kick extends React.Component {
 
             {/* Release Knob:: */}
             <div className="knob">
-              <small className="knobText">Release</small>
+              <small className="fontColor">Release</small>
               <Knob
                 skin={skins.s16}
                 unlockDistance={30}
@@ -80,7 +80,7 @@ class Kick extends React.Component {
             {/* Pitch Decay Knob:: */}
 
             <div className="knob">
-              <small className="knobText">P Decay</small>
+              <small className="fontColor">P Decay</small>
               <Knob
                 skin={skins.s16}
                 unlockDistance={30}
@@ -106,7 +106,7 @@ class Kick extends React.Component {
             {/* Note Knob::*/}
 
             <div className="knob">
-              <small className="knobText">Frequency</small>
+              <small className="fontColor">Frequency</small>
               <Knob
                 skin={skins.s16}
                 unlockDistance={30}
@@ -116,6 +116,22 @@ class Kick extends React.Component {
                 clampMax={180}
                 rotateDegrees={270}
                 value={this.props.kickNote}
+              />
+            </div>
+
+            {/* Volume Knob::*/}
+
+            <div className="knob">
+              <small className="fontColor">Volume</small>
+              <Knob
+                skin={skins.s16}
+                unlockDistance={30}
+                onChange={this.props.kickVolumeHandler}
+                min={-50}
+                max={10}
+                clampMax={180}
+                rotateDegrees={270}
+                value={this.props.kickVolume}
               />
             </div>
           </div>

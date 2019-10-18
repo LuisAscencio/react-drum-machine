@@ -2,7 +2,7 @@ import React from "react";
 
 class Step extends React.Component {
   handleMouse = e => {
-    console.log(e.type);
+    // console.log(e.type);
     if (this.props.mouse) {
       this.props.clickHandler(e);
     }

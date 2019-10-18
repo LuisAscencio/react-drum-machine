@@ -5,8 +5,8 @@ const KickEnvelopeContainer = props => {
   return (
     <div className="kickCard">
       <div className="column">
-        <div className="title">
-          <small className="title">Envelope</small>
+        <div className="backWhite">
+          <small className="titleWhite">AmpEnv</small>
         </div>
         <Kick
           knobs="envelope"
