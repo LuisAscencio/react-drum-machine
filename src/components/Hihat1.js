@@ -60,7 +60,7 @@ class Hihat1 extends React.Component {
                 skin={skins.s16}
                 unlockDistance={30}
                 onChange={this.props.hH1HarmonicityHandler}
-                min={0.0}
+                min={0}
                 max={6}
                 clampMax={180}
                 rotateDegrees={270}
@@ -72,7 +72,7 @@ class Hihat1 extends React.Component {
 
         {this.props.knobs === "osc" ? (
           <div>
-            {/* Pitch Decay Knob:: */}
+            {/* Volume Knob:: */}
 
             <div className="knob">
               <small className="knobText">Volume</small>

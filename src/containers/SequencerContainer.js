@@ -40,7 +40,7 @@ class SequencerContainer extends React.Component {
           style={{
             backgroundColor: "#CBCBCB",
             borderRadius: "5px",
-            border: "none",
+            // border: "none",
             // color: "black",
             padding: "5px 5px",
             textAlign: "center",
@@ -53,7 +53,7 @@ class SequencerContainer extends React.Component {
             outline: 0
           }}
         >
-          Reset Sequence
+          Reset
         </button>
         <div className="seqBox">
           {/* Kick sequencer */}

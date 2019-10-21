@@ -31,7 +31,7 @@ class Trans extends React.Component {
     // Transport.loop = true;
   }
 
-  bpmHanlder = val => {
+  bpmHandler = val => {
     this.setState({
       bpm: val
     });
@@ -85,20 +85,23 @@ class Trans extends React.Component {
             <i className="fa fa-play" style={this.colorG}></i>
           )}
         </button>
+        <br />
+        <br />
+        <small className="knobTempo"> Tempo</small>
         <Knob
           skin={skins.s16}
           unlockDistance={30}
-          onChange={this.bpmHanlder}
+          onChange={this.bpmHandler}
           min={100}
           max={300}
           clampMax={180}
           rotateDegrees={270}
           value={this.state.bpm}
         />
-        <small className="knobText">
-          BMP {`${Math.trunc(this.state.bpm)}`}
-        </small>
 
+        {/* <small className="knobText">
+          BMP {`${Math.trunc(this.state.bpm)}`}
+        </small> */}
         {/* <Knob
           skin={skins.s16}
           unlockDistance={30}

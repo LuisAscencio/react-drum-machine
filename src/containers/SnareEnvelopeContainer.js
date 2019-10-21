@@ -19,7 +19,7 @@ const SnareEnvelopeContainer = props => {
           snareSustain={props.snareSustain}
           snareSustainHandler={props.snareSustainHandler}
           ///
-          snareHandler={props.snareHandler}
+          // snareHandler={props.snareHandler}
         />
       </div>
     </div>

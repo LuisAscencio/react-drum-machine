@@ -22,7 +22,7 @@ const Hihat1EnvelopeContainer = props => {
           hH1Harmonicity={props.hH1Harmonicity}
           hH1HarmonicityHandler={props.hH1HarmonicityHandler}
           ///
-          hH1Handler={props.hH1Handler}
+          // hH1Handler={props.hH1Handler}
         />
       </div>
     </div>

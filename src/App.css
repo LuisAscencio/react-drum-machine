@@ -113,6 +113,10 @@
 .knobText {
   font-size: 9px;
 }
+.knobTempo {
+  font-size: 9px;
+  padding: 11px;
+}
 
 .knob {
   margin-top: -10px;
@@ -128,7 +132,6 @@
 }
 
 .all {
-  /* background-image: url("./322636.jpg"); */
   margin-left: 0.2em;
   margin-top: 0.3em;
 }
@@ -153,6 +156,7 @@
 .seqReset {
   margin-left: 5px;
   color: "black";
+  backgroundcolor: "#CBCBCB";
 }
 .seqReset:active {
   margin-left: 5px;
@@ -181,4 +185,8 @@
   position: relative;
   font-family: Arial;
   outline: 0;
+}
+
+.ocho {
+  background-image: "./D2115_73_581_1200.jpg";
 }

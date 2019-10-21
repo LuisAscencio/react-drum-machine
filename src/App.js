@@ -3,7 +3,6 @@ import Transport from "./components/Transport";
 import "./App.css";
 
 class App extends React.Component {
-  state = {};
   render() {
     return (
       <div className="all">

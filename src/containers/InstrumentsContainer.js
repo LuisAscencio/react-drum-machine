@@ -21,7 +21,6 @@ class InstrumentsContainer extends React.Component {
       hh1Button: false,
       hh2Button: false,
       tomButton: false,
-      percButton: false,
 
       ///Kick params:::
       kickAttack: 0.001,
@@ -64,7 +63,7 @@ class InstrumentsContainer extends React.Component {
 
       /// Hihat2 params:::
       hH2Pan: 0.5,
-      hH2Volume: -10,
+      hH2Volume: -20,
       hH2Attack: 0.05,
       hH2Decay: 0.1,
       hH2Release: 0.1,
@@ -80,7 +79,7 @@ class InstrumentsContainer extends React.Component {
       percResonance: 0.7,
       percNote: 300
     };
-    window.kickAttack = 0.001;
+    // window.kickAttack = 0.001;
 
     // this.kickContainer = {};
     // this.snareContainer = {};
@@ -96,8 +95,7 @@ class InstrumentsContainer extends React.Component {
       snareButton: false,
       hh1Button: false,
       hh2Button: false,
-      tomButton: false,
-      percButton: false
+      tomButton: false
     });
   };
 
@@ -107,8 +105,7 @@ class InstrumentsContainer extends React.Component {
       kickButton: false,
       hh1Button: false,
       hh2Button: false,
-      tomButton: false,
-      percButton: false
+      tomButton: false
     });
   };
 
@@ -118,8 +115,7 @@ class InstrumentsContainer extends React.Component {
       snareButton: false,
       kickButton: false,
       hh1Button: false,
-      hh2Button: false,
-      percButton: false
+      hh2Button: false
     });
   };
   clickHandlerHh1Button = e => {
@@ -128,25 +124,13 @@ class InstrumentsContainer extends React.Component {
       kickButton: false,
       snareButton: false,
       hh2Button: false,
-      tomButton: false,
-      percButton: false
+      tomButton: false
     });
   };
 
   clickHandlerHh2Button = e => {
     this.setState({
       hh2Button: true,
-      kickButton: false,
-      snareButton: false,
-      hh1Button: false,
-      tomButton: false,
-      percButton: false
-    });
-  };
-  clickHandlerPercButton = e => {
-    this.setState({
-      percButton: true,
-      hh2Button: false,
       kickButton: false,
       snareButton: false,
       hh1Button: false,
@@ -157,8 +141,7 @@ class InstrumentsContainer extends React.Component {
   /// Kick methods::::
 
   kickAttackHandler = val => {
-    window.kickAttack = val;
-    // this.setState({ kickAttack: val });
+    this.setState({ kickAttack: val });
     // console.log(this.state.kickAttack);
   };
 
@@ -351,7 +334,7 @@ class InstrumentsContainer extends React.Component {
     window.kick = new Tone.MembraneSynth().toMaster();
     /// Envelope params::
 
-    window.kick.envelope.attack = window.kickAttack;
+    window.kick.envelope.attack = this.state.kickAttack;
     window.kick.envelope.decay = this.state.kickDecay;
     window.kick.envelope.sustain = this.state.kickSustain;
     window.kick.envelope.release = this.state.kickRelease;
@@ -695,7 +678,7 @@ class InstrumentsContainer extends React.Component {
                       kickRelease={this.state.kickRelease}
                       kickReleaseHandler={this.kickReleaseHandler}
                       ///
-                      kickHandler={this.kickHandler}
+                      // kickHandler={this.kickHandler}
                     />
                   </div>
                   <div>
@@ -725,7 +708,7 @@ class InstrumentsContainer extends React.Component {
                       snareSustain={this.state.snareSustain}
                       snareSustainHandler={this.snareSustainHandler}
                       ///
-                      snareHandler={this.snareHandler}
+                      // snareHandler={this.snareHandler}
                     />
                   </div>
                   <div>
@@ -756,7 +739,7 @@ class InstrumentsContainer extends React.Component {
                       tomRelease={this.state.tomRelease}
                       tomReleaseHandler={this.tomReleaseHandler}
                       ///
-                      tomHandler={this.tomHandler}
+                      // tomHandler={this.tomHandler}
                     />
                   </div>
                   <div>
@@ -791,7 +774,7 @@ class InstrumentsContainer extends React.Component {
                       hH1Harmonicity={this.state.hH1Harmonicity}
                       hH1HarmonicityHandler={this.hH1HarmonicityHandler}
                       ///
-                      hH1Handler={this.hH1Handler}
+                      // hH1Handler={this.hH1Handler}
                     />
                   </div>
                   <div>
@@ -825,14 +808,14 @@ class InstrumentsContainer extends React.Component {
                       hH2Harmonicity={this.state.hH2Harmonicity}
                       hH2HarmonicityHandler={this.hH2HarmonicityHandler}
                       ///
-                      hH2Handler={this.hH2Handler}
+                      // hH2Handler={this.hH2Handler}
                     />
                   </div>
                   <div>
                     <Hh2OscContainer
                       hH2Pan={this.state.hH2Pan}
                       hH2PanHandler={this.hH2PanHandler}
-                      hH1Volume={this.state.hH1Volume}
+                      hH1Volume={this.state.hH2Volume}
                       hH2VolumeHandler={this.hH2VolumeHandler}
                       hH2Frequency={this.state.hH2Frequency}
                       hH2FrequencyHandler={this.hH2FrequencyHandler}
@@ -864,7 +847,7 @@ class InstrumentsContainer extends React.Component {
                       kickRelease={this.state.kickRelease}
                       kickReleaseHandler={this.kickReleaseHandler}
                       ///
-                      kickHandler={this.kickHandler}
+                      // kickHandler={this.kickHandler}
                     />
                   </div>
                   <div>

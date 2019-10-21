@@ -25,7 +25,7 @@ class Kick extends React.Component {
                 max={0.09}
                 clampMax={180}
                 rotateDegrees={270}
-                defaultValue={0.001}
+                value={this.props.kickAttack}
               />
             </div>
 

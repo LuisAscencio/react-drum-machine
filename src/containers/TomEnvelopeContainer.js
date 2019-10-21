@@ -22,7 +22,7 @@ const TomEnvelopeContainer = props => {
           tomRelease={props.tomRelease}
           tomReleaseHandler={props.tomReleaseHandler}
           ///
-          tomHandler={props.tomHandler}
+          // tomHandler={props.tomHandler}
         />
       </div>
     </div>

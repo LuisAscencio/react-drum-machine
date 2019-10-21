@@ -60,8 +60,8 @@ class Hihat2 extends React.Component {
                 skin={skins.s16}
                 unlockDistance={30}
                 onChange={this.props.hH2HarmonicityHandler}
-                min={25}
-                max={0}
+                min={0}
+                max={6}
                 clampMax={180}
                 rotateDegrees={270}
                 value={this.props.hH2Harmonicity}

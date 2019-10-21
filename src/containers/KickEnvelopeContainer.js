@@ -22,7 +22,7 @@ const KickEnvelopeContainer = props => {
           kickRelease={props.kickRelease}
           kickReleaseHandler={props.kickReleaseHandler}
           ///
-          kickHandler={props.kickHandler}
+          // kickHandler={props.kickHandler}
         />
       </div>
     </div>
