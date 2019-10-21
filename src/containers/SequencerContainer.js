@@ -37,6 +37,21 @@ class SequencerContainer extends React.Component {
           className="seqReset"
           onClick={this.triggerChildReset}
           type="button"
+          style={{
+            backgroundColor: "#CBCBCB",
+            borderRadius: "5px",
+            border: "none",
+            // color: "black",
+            padding: "5px 5px",
+            textAlign: "center",
+            textDecoration: "none",
+            display: "inline-block",
+            fontSize: "16px",
+            margin: "4px 8px",
+
+            cursor: "pointer",
+            outline: 0
+          }}
         >
           Reset Sequence
         </button>

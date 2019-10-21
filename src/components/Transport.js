@@ -1,16 +1,18 @@
 import React from "react";
 import { Transport } from "tone";
+import { Knob } from "react-rotary-knob";
+import * as skins from "react-rotary-knob-skin-pack";
 import InstrumentsContainer from "../containers/InstrumentsContainer";
 
 class Trans extends React.Component {
   constructor(props) {
     super(props);
 
-    Transport.bpm.value = 200;
-
     this.state = {
       reset: false,
-      start: false
+      start: false,
+      bpm: 120
+      // swing: 0
     };
     this.style = {
       fontSize: "40px",
@@ -24,16 +26,35 @@ class Trans extends React.Component {
     this.colorG = {
       color: "rgb(23, 62, 67)"
     };
+    Transport.bpm.value = this.state.bpm;
+    // Transport.setLoopPoints(0, "4m");
+    // Transport.loop = true;
   }
 
+  bpmHanlder = val => {
+    this.setState({
+      bpm: val
+    });
+    Transport.bpm.value = this.state.bpm;
+  };
+
+  // swingHandler = val => {
+  //   this.setState({
+  //     swing: val.toFixed(2)
+  //   });
+  //   console.log(this.state.swing);
+  //   Transport.swing = this.state.swing;
+  // };
+
   startTransportHandler = () => {
-    Transport.start("+.3");
+    Transport.start("+.2");
     this.setState({
       start: true
     });
   };
   stopTransportHandler = () => {
     Transport.stop();
+    Transport.clear();
     this.setState({
       start: false
     });
@@ -64,7 +85,31 @@ class Trans extends React.Component {
             <i className="fa fa-play" style={this.colorG}></i>
           )}
         </button>
+        <Knob
+          skin={skins.s16}
+          unlockDistance={30}
+          onChange={this.bpmHanlder}
+          min={100}
+          max={300}
+          clampMax={180}
+          rotateDegrees={270}
+          value={this.state.bpm}
+        />
+        <small className="knobText">
+          BMP {`${Math.trunc(this.state.bpm)}`}
+        </small>
 
+        {/* <Knob
+          skin={skins.s16}
+          unlockDistance={30}
+          onChange={this.swingHandler}
+          min={0}
+          max={1}
+          clampMax={180}
+          rotateDegrees={270}
+          value={this.state.swing}
+        />
+        <small className="knobText">Swing {`${this.state.swing} %`}</small> */}
         <div>
           {/* {`${this.state.beat}`}: {`${this.state.tick}`}:{" "}
           {`${Math.trunc(parseInt(this.state.time))}`} */}

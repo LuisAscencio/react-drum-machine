@@ -25,7 +25,7 @@ class Kick extends React.Component {
                 max={0.09}
                 clampMax={180}
                 rotateDegrees={270}
-                value={this.props.kickAttack}
+                defaultValue={0.001}
               />
             </div>
 
@@ -95,7 +95,10 @@ class Kick extends React.Component {
 
             {/* Oscillator type menu */}
             <div>
-              <select className="knob" onChange={this.props.kickOscTypeHandler}>
+              <select
+                className="custom-select"
+                onChange={this.props.kickOscTypeHandler}
+              >
                 <option value="sine">sine</option>
                 <option value="square">square</option>
                 <option value="triangle">triangle</option>

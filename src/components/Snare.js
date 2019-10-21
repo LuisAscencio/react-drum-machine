@@ -77,7 +77,7 @@ class Snare extends React.Component {
             <div>
               <select
                 defaultValue="brown"
-                className="knob"
+                className="custom-select"
                 onChange={this.props.snareNoiseTypeHandler}
               >
                 <option value="white">white</option>

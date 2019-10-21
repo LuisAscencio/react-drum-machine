@@ -79,7 +79,7 @@ class StepSequencer extends React.Component {
     // console.log(newArray);
   };
 
-  checkStep = time => {
+  checkStep = () => {
     this.setState({
       100: false,
       101: false,
@@ -124,7 +124,7 @@ class StepSequencer extends React.Component {
             flexDirection: "row",
             width: "890px",
             borderRadius: "5px",
-            padding: "10px",
+            padding: "6px",
             margin: "5px",
             border: `${this.props.color}`
           }}

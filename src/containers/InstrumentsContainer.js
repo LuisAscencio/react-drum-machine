@@ -1,6 +1,5 @@
 import React from "react";
 import Tone from "tone";
-
 import KickEnvelopeContainer from "./KickEnvelopeContainer";
 import KickOscControlsContainer from "./KickOscControlsContainer";
 import SnareEnvelopeContainer from "./SnareEnvelopeContainer";
@@ -22,6 +21,7 @@ class InstrumentsContainer extends React.Component {
       hh1Button: false,
       hh2Button: false,
       tomButton: false,
+      percButton: false,
 
       ///Kick params:::
       kickAttack: 0.001,
@@ -70,58 +70,83 @@ class InstrumentsContainer extends React.Component {
       hH2Release: 0.1,
       hH2Frequency: 400,
       hH2Resonance: 4000,
-      hH2Harmonicity: 1.1
+      hH2Harmonicity: 1.1,
+
+      /// Perc Params::
+      percPan: -0.6,
+      percVolume: -15,
+      percAttak: 0.05,
+      percDamp: 4000,
+      percResonance: 0.7,
+      percNote: 300
     };
+    window.kickAttack = 0.001;
+
+    // this.kickContainer = {};
+    // this.snareContainer = {};
+    // this.hH1Container = {};
+    // this.hH2Container = {};
+    // this.tomContainer = {};
   }
 
   /// Sound settings methods:::
   clickHandlerKickButton = e => {
-    console.log("event", e.target);
     this.setState({
       kickButton: true,
       snareButton: false,
       hh1Button: false,
       hh2Button: false,
-      tomButton: false
+      tomButton: false,
+      percButton: false
     });
   };
 
   clickHandlerSnareButton = e => {
-    console.log("event", e.target);
     this.setState({
       snareButton: true,
       kickButton: false,
       hh1Button: false,
       hh2Button: false,
-      tomButton: false
+      tomButton: false,
+      percButton: false
     });
   };
 
   clickHandlerTomButton = e => {
-    console.log("event", this.state.tomButton);
     this.setState({
       tomButton: true,
       snareButton: false,
       kickButton: false,
       hh1Button: false,
-      hh2Button: false
+      hh2Button: false,
+      percButton: false
     });
   };
   clickHandlerHh1Button = e => {
-    console.log("event", e.target);
     this.setState({
       hh1Button: true,
       kickButton: false,
       snareButton: false,
       hh2Button: false,
-      tomButton: false
+      tomButton: false,
+      percButton: false
     });
   };
 
   clickHandlerHh2Button = e => {
-    console.log("event", e.target);
     this.setState({
       hh2Button: true,
+      kickButton: false,
+      snareButton: false,
+      hh1Button: false,
+      tomButton: false,
+      percButton: false
+    });
+  };
+  clickHandlerPercButton = e => {
+    this.setState({
+      percButton: true,
+      hh2Button: false,
       kickButton: false,
       snareButton: false,
       hh1Button: false,
@@ -132,7 +157,8 @@ class InstrumentsContainer extends React.Component {
   /// Kick methods::::
 
   kickAttackHandler = val => {
-    this.setState({ kickAttack: val });
+    window.kickAttack = val;
+    // this.setState({ kickAttack: val });
     // console.log(this.state.kickAttack);
   };
 
@@ -322,114 +348,143 @@ class InstrumentsContainer extends React.Component {
   ///Triggers:::
 
   kickHandler = () => {
-    let kick = new Tone.MembraneSynth().toMaster();
+    window.kick = new Tone.MembraneSynth().toMaster();
     /// Envelope params::
 
-    kick.envelope.attack = this.state.kickAttack;
-    kick.envelope.decay = this.state.kickDecay;
-    kick.envelope.sustain = this.state.kickSustain;
-    kick.envelope.release = this.state.kickRelease;
+    window.kick.envelope.attack = window.kickAttack;
+    window.kick.envelope.decay = this.state.kickDecay;
+    window.kick.envelope.sustain = this.state.kickSustain;
+    window.kick.envelope.release = this.state.kickRelease;
     // /// Osc params:::
-    kick.pitchDecay = this.state.kickPitchDecay;
-    kick.oscillator.type = this.state.KickOscType;
-    kick.volume.value = this.state.kickVolume;
+    window.kick.pitchDecay = this.state.kickPitchDecay;
+    window.kick.oscillator.type = this.state.KickOscType;
+    window.kick.volume.value = this.state.kickVolume;
 
     ///Convert freq to note:::
-    let frequency = this.state.kickNote;
+    window.frequency = this.state.kickNote;
 
-    let noteOrder = "G# A A# B C C# D D# E F F# G".split(" ");
-    let n = Math.round(49 + (12 * Math.log(frequency / 440)) / Math.log(2));
-    let note = noteOrder[n % noteOrder.length];
-    let index = Math.ceil((n - 3) / noteOrder.length);
+    window.noteOrder = "G# A A# B C C# D D# E F F# G".split(" ");
+    window.n = Math.round(
+      49 + (12 * Math.log(window.frequency / 440)) / Math.log(2)
+    );
+    window.note = window.noteOrder[window.n % window.noteOrder.length];
+    window.index = Math.ceil((window.n - 3) / window.noteOrder.length);
 
-    let foundNote = note + index;
+    window.foundNote = window.note + window.index;
 
     // console.log(foundNote);
-    kick.triggerAttackRelease(foundNote, "8n");
+    window.kick.triggerAttackRelease(window.foundNote, "8n");
+    delete window.kick;
+    delete window.frequency;
+
+    delete window.noteOrder;
+    delete window.n;
+    delete window.note;
+    delete window.index;
+    delete window.foundNote;
   };
 
   snareHandler = () => {
-    let snarePan = new Tone.Panner({}).toMaster();
+    window.snarePan = new Tone.Panner({}).toMaster();
 
-    let snare = new Tone.NoiseSynth({}).connect(snarePan);
+    window.snare = new Tone.NoiseSynth({}).connect(window.snarePan);
 
-    snare.volume.value = this.state.snareVolume;
-    snarePan.pan.value = this.state.snarePan;
-    snare.noise.type = this.state.snareNoiseType;
-    snare.envelope.attack = this.state.snareAttack;
-    snare.envelope.decay = this.state.snareDecay;
-    snare.envelope.sustain = this.state.snareSustain;
-    snare.triggerAttackRelease("8n");
+    // this.kickContainer.snare.volume.value = this.state.snareVolume;
+    window.snarePan.pan.value = this.state.snarePan;
+    window.snare.noise.type = this.state.snareNoiseType;
+    window.snare.envelope.attack = this.state.snareAttack;
+    window.snare.envelope.decay = this.state.snareDecay;
+    window.snare.envelope.sustain = this.state.snareSustain;
+    window.snare.triggerAttackRelease("8n");
+    delete window.snarePan;
+    delete window.snare;
   };
 
   tomHandler = () => {
-    let tomPan = new Tone.Panner({}).toMaster();
-    let tom = new Tone.MembraneSynth().connect(tomPan);
+    window.tomPan = new Tone.Panner({}).toMaster();
+    window.tom = new Tone.MembraneSynth().connect(window.tomPan);
     /// Envelope params::
 
-    tom.envelope.attack = this.state.tomAttack;
-    tom.envelope.decay = this.state.tomDecay;
-    tom.envelope.sustain = this.state.tomSustain;
-    tom.envelope.release = this.state.tomRelease;
+    window.tom.envelope.attack = this.state.tomAttack;
+    window.tom.envelope.decay = this.state.tomDecay;
+    window.tom.envelope.sustain = this.state.tomSustain;
+    window.tom.envelope.release = this.state.tomRelease;
     // /// Osc params:::
-    tom.pitchDecay = this.state.tomPitchDecay;
-    tom.oscillator.type = this.state.tomOscType;
-    tom.volume.value = this.state.tomVolume;
-    tomPan.pan.value = this.state.tomPan;
+    window.tom.pitchDecay = this.state.tomPitchDecay;
+    window.tom.oscillator.type = this.state.tomOscType;
+    window.tom.volume.value = this.state.tomVolume;
+    window.tomPan.pan.value = this.state.tomPan;
 
     ///Convert freq to note:::
-    let frequency = this.state.tomNote;
+    window.tomFrequency = this.state.tomNote;
 
-    let noteOrder = "G# A A# B C C# D D# E F F# G".split(" ");
-    let n = Math.round(49 + (12 * Math.log(frequency / 440)) / Math.log(2));
-    let note = noteOrder[n % noteOrder.length];
-    let index = Math.ceil((n - 3) / noteOrder.length);
+    window.tomNoteOrder = "G# A A# B C C# D D# E F F# G".split(" ");
+    window.tomN = Math.round(
+      49 + (12 * Math.log(window.tomFrequency / 440)) / Math.log(2)
+    );
+    window.tomNote =
+      window.tomNoteOrder[window.tomN % window.tomNoteOrder.length];
+    window.tomIndex = Math.ceil((window.tomN - 3) / window.tomNoteOrder.length);
 
-    let foundNote = note + index;
+    window.tomFoundNote = window.tomNote + window.tomIndex;
 
     // console.log(foundNote);
-    tom.triggerAttackRelease(foundNote, "8n");
+    // debugger;
+    window.tom.triggerAttackRelease(window.tomFoundNote, "8n");
+
+    delete window.tomPan;
+    delete window.tom;
+    delete window.tomFrequency;
+    delete window.tomNoteOrder;
+    delete window.tomN;
+    delete window.tomNote;
+    delete window.tomIndex;
+    delete window.tomFoundNote;
   };
 
   hH1Handler = () => {
-    let hH1Pan = new Tone.Panner({}).toMaster();
-    let pinPong = new Tone.PingPongDelay({
-      delayTime: 0.15,
-      feedBack: 0.1
-    }).connect(hH1Pan);
+    window.hH1Pan = new Tone.Panner({}).toMaster();
+    window.pinPong = new Tone.PingPongDelay({}).connect(window.hH1Pan);
 
-    let hH1 = new Tone.MetalSynth({}).connect(pinPong);
-    hH1.volume.value = this.state.hH1Volume;
-    hH1Pan.pan.value = this.state.hH1Pan;
-    hH1.envelope.attack = this.state.hH1Attack;
-    hH1.envelope.decay = this.state.hH1Decay;
-    hH1.envelope.release = this.state.hH1Release;
-    pinPong.wet.value = this.state.hH1Delay;
-    hH1.resonance = this.state.hH1Resonance;
-    hH1.harmonicity = this.state.hH1Harmonicity;
-    hH1.triggerAttackRelease("8n");
+    window.hH1 = new Tone.MetalSynth({}).connect(window.pinPong);
+    window.hH1.volume.value = this.state.hH1Volume;
+    window.hH1Pan.pan.value = this.state.hH1Pan;
+    window.hH1.envelope.attack = this.state.hH1Attack;
+    window.hH1.envelope.decay = this.state.hH1Decay;
+    window.hH1.envelope.release = this.state.hH1Release;
+    window.pinPong.wet.value = this.state.hH1Delay;
+    window.hH1.resonance = this.state.hH1Resonance;
+    window.hH1.harmonicity = this.state.hH1Harmonicity;
+    window.hH1.triggerAttackRelease("8n");
+
+    delete window.hH1Pan;
+    delete window.pinPong;
+    delete window.hH1;
   };
 
   hH2Handler = () => {
-    let hH2Pan = new Tone.Panner({}).toMaster();
+    window.hH2Pan = new Tone.Panner({}).toMaster();
 
-    let hH2 = new Tone.MetalSynth({}).connect(hH2Pan);
-    hH2.volume.value = this.state.hH2Volume;
-    hH2Pan.pan.value = this.state.hH2Pan;
-    hH2.envelope.attack = this.state.hH2Attack;
-    hH2.envelope.decay = this.state.hH2Decay;
-    hH2.envelope.release = this.state.hH2Release;
-    hH2.frequency.value = this.state.hH2Frequency;
-    hH2.resonance = this.state.hH2Resonance;
-    hH2.harmonicity = this.state.hH2Harmonicity;
-    hH2.triggerAttackRelease("8n");
+    window.hH2 = new Tone.MetalSynth({}).connect(window.hH2Pan);
+    window.hH2.volume.value = this.state.hH2Volume;
+    window.hH2Pan.pan.value = this.state.hH2Pan;
+    window.hH2.envelope.attack = this.state.hH2Attack;
+    window.hH2.envelope.decay = this.state.hH2Decay;
+    window.hH2.envelope.release = this.state.hH2Release;
+    window.hH2.frequency.value = this.state.hH2Frequency;
+    window.hH2.resonance = this.state.hH2Resonance;
+    window.hH2.harmonicity = this.state.hH2Harmonicity;
+    window.hH2.triggerAttackRelease("8n");
+
+    delete window.hH2Pan;
+    delete window.hH2;
   };
 
   render() {
     return (
       <div>
         <h1>
-          Ocho-Cero-Ocho
+          808
           <br />
           <div>
             <button
@@ -439,9 +494,32 @@ class InstrumentsContainer extends React.Component {
                       backgroundColor: "rgb(23, 62, 67)",
                       outline: 0,
                       color: "whitesmoke",
-                      fontWeight: "bold"
+                      fontWeight: "bold",
+                      border: "none",
+                      padding: "5px 5px",
+                      textAlign: "center",
+                      textDecoration: "none",
+                      display: "inline-block",
+                      fontSize: "16px",
+                      margin: "4px 2px",
+                      cursor: "pointer",
+                      borderRadius: "5px"
                     }
-                  : null
+                  : {
+                      backgroundColor: "#CBCBCB",
+                      border: "none",
+
+                      color: "black",
+                      padding: "5px 5px",
+                      textAlign: "center",
+                      textDecoration: "none",
+                      display: "inline-block",
+                      fontSize: "16px",
+                      margin: "4px 2px",
+                      cursor: "pointer",
+                      outline: 0,
+                      borderRadius: "5px"
+                    }
               }
               type="button"
               onClick={this.clickHandlerKickButton}
@@ -451,8 +529,35 @@ class InstrumentsContainer extends React.Component {
             <button
               style={
                 this.state.snareButton
-                  ? { backgroundColor: "rgb(250,229,150)", outline: 0 }
-                  : null
+                  ? {
+                      backgroundColor: "rgb(250,229,150)",
+                      border: "none",
+                      color: "black",
+                      fontWeight: "bold",
+                      padding: "5px 5px",
+                      textAlign: "center",
+                      textDecoration: "none",
+                      display: "inline-block",
+                      fontSize: "16px",
+                      margin: "4px 2px",
+                      cursor: "pointer",
+                      outline: 0,
+                      borderRadius: "5px"
+                    }
+                  : {
+                      backgroundColor: "#CBCBCB",
+                      border: "none",
+                      color: "black",
+                      padding: "5px 5px",
+                      textAlign: "center",
+                      textDecoration: "none",
+                      display: "inline-block",
+                      fontSize: "16px",
+                      margin: "4px 2px",
+                      cursor: "pointer",
+                      outline: 0,
+                      borderRadius: "5px"
+                    }
               }
               type="button"
               onClick={this.clickHandlerSnareButton}
@@ -466,9 +571,31 @@ class InstrumentsContainer extends React.Component {
                       backgroundColor: "rgb(142, 83, 120)",
                       outline: 0,
                       color: "whitesmoke",
-                      fontWeight: "bold"
+                      fontWeight: "bold",
+                      border: "none",
+                      padding: "5px 5px",
+                      textAlign: "center",
+                      textDecoration: "none",
+                      display: "inline-block",
+                      fontSize: "16px",
+                      margin: "4px 2px",
+                      cursor: "pointer",
+                      borderRadius: "5px"
                     }
-                  : null
+                  : {
+                      backgroundColor: "#CBCBCB",
+                      border: "none",
+                      color: "black",
+                      padding: "5px 5px",
+                      textAlign: "center",
+                      textDecoration: "none",
+                      display: "inline-block",
+                      fontSize: "16px",
+                      margin: "4px 2px",
+                      cursor: "pointer",
+                      outline: 0,
+                      borderRadius: "5px"
+                    }
               }
               type="button"
               onClick={this.clickHandlerTomButton}
@@ -480,28 +607,76 @@ class InstrumentsContainer extends React.Component {
                 this.state.hh1Button
                   ? {
                       backgroundColor: "rgb(63, 176, 172)",
-                      outline: 0
+                      border: "none",
+                      color: "black",
+                      fontWeight: "bold",
+                      padding: "5px 5px",
+                      textAlign: "center",
+                      textDecoration: "none",
+                      display: "inline-block",
+                      fontSize: "16px",
+                      margin: "4px 2px",
+                      cursor: "pointer",
+                      outline: 0,
+                      borderRadius: "5px"
                     }
-                  : null
+                  : {
+                      backgroundColor: "#CBCBCB",
+                      border: "none",
+                      color: "black",
+                      padding: "5px 5px",
+                      textAlign: "center",
+                      textDecoration: "none",
+                      display: "inline-block",
+                      fontSize: "16px",
+                      margin: "4px 2px",
+                      cursor: "pointer",
+                      outline: 0,
+                      borderRadius: "5px"
+                    }
               }
               type="button"
               onClick={this.clickHandlerHh1Button}
             >
-              Closed HH
+              Hi hat
             </button>
             <button
               style={
                 this.state.hh2Button
                   ? {
                       backgroundColor: "rgb(158, 225, 186)",
-                      outline: 0
+                      border: "none",
+                      color: "black",
+                      fontWeight: "bold",
+                      padding: "5px 5px",
+                      textAlign: "center",
+                      textDecoration: "none",
+                      display: "inline-block",
+                      fontSize: "16px",
+                      margin: "4px 2px",
+                      cursor: "pointer",
+                      outline: 0,
+                      borderRadius: "5px"
                     }
-                  : null
+                  : {
+                      backgroundColor: "#CBCBCB",
+                      border: "none",
+                      color: "black",
+                      padding: "5px 5px",
+                      textAlign: "center",
+                      textDecoration: "none",
+                      display: "inline-block",
+                      fontSize: "16px",
+                      margin: "4px 2px",
+                      cursor: "pointer",
+                      outline: 0,
+                      borderRadius: "5px"
+                    }
               }
               type="button"
               onClick={this.clickHandlerHh2Button}
             >
-              Open HH
+              Cymbal
             </button>
             <div className="mainCont">
               {this.state.kickButton ? (

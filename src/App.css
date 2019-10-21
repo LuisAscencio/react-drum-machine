@@ -143,7 +143,7 @@
 }
 
 .seq {
-  margin-top: -36px;
+  margin-top: -43px;
 }
 
 .seqBox {
@@ -152,6 +152,11 @@
 
 .seqReset {
   margin-left: 5px;
+  color: "black";
+}
+.seqReset:active {
+  margin-left: 5px;
+  box-shadow: 0 5px #cbcbcb;
 }
 
 .fontColor {
@@ -169,4 +174,11 @@
   font-size: 15px;
 
   margin-top: 5px;
+}
+
+/* The container must be positioned relative: */
+.custom-select {
+  position: relative;
+  font-family: Arial;
+  outline: 0;
 }

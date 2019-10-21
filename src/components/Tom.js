@@ -91,7 +91,10 @@ class Tom extends React.Component {
 
             {/* Oscillator type menu */}
             <div>
-              <select className="knob" onChange={this.props.tomOscTypeHandler}>
+              <select
+                className="custom-select"
+                onChange={this.props.tomOscTypeHandler}
+              >
                 <option value="sine">sine</option>
                 <option value="square">square</option>
                 <option value="triangle">triangle</option>
