@@ -9,7 +9,7 @@ class StepSequencer extends React.Component {
     super(props);
 
     this.state = {
-      arrayLength: Array(16).fill(1),
+      // arrayLength: Array(16).fill(1),
       val: 16,
       /// Background:::
       100: false,
@@ -72,10 +72,10 @@ class StepSequencer extends React.Component {
     this.setState({ val: Math.trunc(val) });
     // console.log(this.state.val);
     this.count = Math.trunc(val) - 1;
-    let newArray = Array(Math.trunc(val)).fill(1);
-    this.setState({
-      arrayLength: newArray
-    });
+    // let newArray = Array(Math.trunc(val)).fill(1);
+    // this.setState({
+    //   arrayLength: newArray
+    // });
     // console.log(newArray);
   };
 
@@ -148,21 +148,23 @@ class StepSequencer extends React.Component {
               value={this.state.val}
             />
           </div>
-          {this.state.arrayLength.map((x, i) => {
-            return (
-              <Step
-                key={i}
-                clickHandler={this.clickHandler}
-                id={i}
-                clicked={this.state[i]}
-                borderColor={this.state[i + 100]}
-                color={this.props.color}
-                mouse={this.props.mouse}
-                mouseChangeDown={this.props.mouseChangeDown}
-                mouseChangeUp={this.props.mouseChangeUp}
-              />
-            );
-          })}
+          {Array(Math.trunc(this.state.val))
+            .fill(1)
+            .map((x, i) => {
+              return (
+                <Step
+                  key={i}
+                  clickHandler={this.clickHandler}
+                  id={i}
+                  clicked={this.state[i]}
+                  borderColor={this.state[i + 100]}
+                  color={this.props.color}
+                  mouse={this.props.mouse}
+                  mouseChangeDown={this.props.mouseChangeDown}
+                  mouseChangeUp={this.props.mouseChangeUp}
+                />
+              );
+            })}
         </div>
       </div>
     );

@@ -10,7 +10,9 @@ import Hihat1EnvelopeContainer from "./Hh1EnvelopeContainer";
 import Hh1OscContainer from "./Hh1OscContainer";
 import Hihat2EnvelopeContainer from "./Hh2EnvelopeContainer";
 import Hh2OscContainer from "./Hh2OscContainer";
+import PresetContainer from "./PresetContainer";
 import SequencerContainer from "./SequencerContainer";
+import Firebase from "../Firebase";
 
 class InstrumentsContainer extends React.Component {
   constructor(props) {
@@ -21,7 +23,7 @@ class InstrumentsContainer extends React.Component {
       hh1Button: false,
       hh2Button: false,
       tomButton: false,
-
+      presetName: "",
       ///Kick params:::
       kickAttack: 0.001,
       kickDecay: 0.2,
@@ -69,15 +71,7 @@ class InstrumentsContainer extends React.Component {
       hH2Release: 0.1,
       hH2Frequency: 400,
       hH2Resonance: 4000,
-      hH2Harmonicity: 1.1,
-
-      /// Perc Params::
-      percPan: -0.6,
-      percVolume: -15,
-      percAttak: 0.05,
-      percDamp: 4000,
-      percResonance: 0.7,
-      percNote: 300
+      hH2Harmonicity: 1.1
     };
     // window.kickAttack = 0.001;
 
@@ -142,7 +136,7 @@ class InstrumentsContainer extends React.Component {
 
   kickAttackHandler = val => {
     this.setState({ kickAttack: val });
-    // console.log(this.state.kickAttack);
+    console.log(this.state.kickAttack);
   };
 
   kickDecayHandler = val => {
@@ -328,6 +322,186 @@ class InstrumentsContainer extends React.Component {
     // console.log(this.state.hH1Harmonicity);
   };
 
+  savePreset = e => {
+    Firebase.firestore()
+      .collection("preset")
+      .add({
+        presetName: this.state.presetName,
+
+        ///Kick params:::
+        kickAttack: this.state.kickAttack,
+        kickDecay: this.state.kickDecay,
+        kickSustain: this.state.kickSustain,
+        kickRelease: this.state.kickRelease,
+        kickPitchDecay: this.state.kickPitchDecay,
+        KickOscType: this.state.KickOscType,
+        kickNote: this.state.kickNote,
+        kickVolume: this.state.kickVolume,
+
+        ///Tom params:::
+        tomAttack: this.state.tomAttack,
+        tomDecay: this.state.tomDecay,
+        tomSustain: this.state.tomSustain,
+        tomRelease: this.state.tomRelease,
+        tomPitchDecay: this.state.tomPitchDecay,
+        tomOscType: this.state.tomOscType,
+        tomNote: this.state.tomNote,
+        tomVolume: this.state.tomVolume,
+        tomPan: this.state.tomPan,
+
+        ////Snare params::
+        snarePan: this.state.snarePan,
+        snareVolume: this.state.snareVolume,
+        snareAttack: this.state.snareAttack,
+        snareDecay: this.state.snareDecay,
+        snareSustain: this.state.snareSustain,
+        snareNoiseType: this.state.snareNoiseType,
+
+        /// Hihat1 params:::
+        hH1Pan: this.state.hH1Pan,
+        hH1Volume: this.state.hH1Volume,
+        hH1Attack: this.state.hH1Attack,
+        hH1Decay: this.state.hH1Decay,
+        hH1Release: this.state.hH1Release,
+        hH1Delay: this.state.hH1Delay,
+        hH1Resonance: this.state.hH1Resonance,
+        hH1Harmonicity: this.state.hH1Harmonicity,
+
+        /// Hihat2 params:::
+        hH2Pan: this.state.hH2Pan,
+        hH2Volume: this.state.hH2Volume,
+        hH2Attack: this.state.hH2Attack,
+        hH2Decay: this.state.hH2Decay,
+        hH2Release: this.state.hH2Release,
+        hH2Frequency: this.state.hH2Frequency,
+        hH2Resonance: this.state.hH2Resonance,
+        hH2Harmonicity: this.state.hH2Harmonicity
+      });
+    this.setState({
+      presetName: ""
+    });
+  };
+
+  loadPreset = e => {
+    Firebase.firestore()
+      .collection("preset")
+      .doc(`${e.target.nextSibling.value}`)
+      .get()
+      .then(doc => {
+        console.log(doc.data());
+        let data = doc.data();
+        console.log(data.kickAttack);
+
+        this.setState({
+          newPresetName: data.presetName,
+          kickAttack: data.kickAttack,
+          kickDecay: data.kickDecay,
+          kickSustain: data.kickSustain,
+          kickRelease: data.kickRelease,
+          kickPitchDecay: data.kickPitchDecay,
+          KickOscType: data.KickOscType,
+          kickNote: data.kickNote,
+          kickVolume: data.kickVolume,
+
+          ///Tom params:::
+          tomAttack: data.tomAttack,
+          tomDecay: data.tomDecay,
+          tomSustain: data.tomSustain,
+          tomRelease: data.tomRelease,
+          tomPitchDecay: data.tomPitchDecay,
+          tomOscType: data.tomOscType,
+          tomNote: data.tomNote,
+          tomVolume: data.tomVolume,
+          tomPan: data.tomPan,
+
+          ////Snare params::
+          snarePan: data.snarePan,
+          snareVolume: data.snareVolume,
+          snareAttack: data.snareAttack,
+          snareDecay: data.snareDecay,
+          snareSustain: data.snareSustain,
+          snareNoiseType: data.snareNoiseType,
+
+          /// Hihat1 params:::
+          hH1Pan: data.hH1Pan,
+          hH1Volume: data.hH1Volume,
+          hH1Attack: data.hH1Attack,
+          hH1Decay: data.hH1Decay,
+          hH1Release: data.hH1Release,
+          hH1Delay: data.hH1Delay,
+          hH1Resonance: data.hH1Resonance,
+          hH1Harmonicity: data.hH1Harmonicity,
+
+          /// Hihat2 params:::
+          hH2Pan: data.hH2Pan,
+          hH2Volume: data.hH2Volume,
+          hH2Attack: data.hH2Attack,
+          hH2Decay: data.hH2Decay,
+          hH2Release: data.hH2Release,
+          hH2Frequency: data.hH2Frequency,
+          hH2Resonance: data.hH2Resonance,
+          hH2Harmonicity: data.hH2Harmonicity
+        });
+      });
+
+    // this.setState({
+    //   ///Kick params:::
+    //   kickAttack: this.state.kickAttack,
+    //   kickDecay: this.state.kickDecay,
+    //   kickSustain: this.state.kickSustain,
+    //   kickRelease: this.state.kickRelease,
+    //   kickPitchDecay: this.state.kickPitchDecay,
+    //   KickOscType: this.state.KickOscType,
+    //   kickNote: this.state.kickNote,
+    //   kickVolume: this.state.kickVolume,
+
+    //   ///Tom params:::
+    //   tomAttack: this.state.tomAttack,
+    //   tomDecay: this.state.tomDecay,
+    //   tomSustain: this.state.tomSustain,
+    //   tomRelease: this.state.tomRelease,
+    //   tomPitchDecay: this.state.tomPitchDecay,
+    //   tomOscType: this.state.tomOscType,
+    //   tomNote: this.state.tomNote,
+    //   tomVolume: this.state.tomVolume,
+    //   tomPan: this.state.tomPan,
+
+    //   ////Snare params::
+    //   snarePan: this.state.snarePan,
+    //   snareVolume: this.state.snareVolume,
+    //   snareAttack: this.state.snareAttack,
+    //   snareDecay: this.state.snareDecay,
+    //   snareSustain: this.state.snareSustain,
+    //   snareNoiseType: this.state.snareNoiseType,
+
+    //   /// Hihat1 params:::
+    //   hH1Pan: this.state.hH1Pan,
+    //   hH1Volume: this.state.hH1Volume,
+    //   hH1Attack: this.state.hH1Attack,
+    //   hH1Decay: this.state.hH1Decay,
+    //   hH1Release: this.state.hH1Release,
+    //   hH1Delay: this.state.hH1Delay,
+    //   hH1Resonance: this.state.hH1Resonance,
+    //   hH1Harmonicity: this.state.hH1Harmonicity,
+
+    //   /// Hihat2 params:::
+    //   hH2Pan: this.state.hH2Pan,
+    //   hH2Volume: this.state.hH2Volume,
+    //   hH2Attack: this.state.hH2Attack,
+    //   hH2Decay: this.state.hH2Decay,
+    //   hH2Release: this.state.hH2Release,
+    //   hH2Frequency: this.state.hH2Frequency,
+    //   hH2Resonance: this.state.hH2Resonance,
+    //   hH2Harmonicity: this.state.hH2Harmonicity
+    // });
+  };
+
+  inputChangeHandler = e => {
+    this.setState({
+      presetName: e.target.value
+    });
+  };
+
   ///Triggers:::
 
   kickHandler = () => {
@@ -467,7 +641,7 @@ class InstrumentsContainer extends React.Component {
     return (
       <div>
         <h1>
-          808
+          {this.state.newPresetName}
           <br />
           <div>
             <button
@@ -874,6 +1048,14 @@ class InstrumentsContainer extends React.Component {
                 />
               </div>
             </div>
+          </div>
+          <div className="presetCard">
+            <PresetContainer
+              inputChangeHandler={this.inputChangeHandler}
+              savePreset={this.savePreset}
+              presetName={this.state.presetName}
+              loadPreset={this.loadPreset}
+            />
           </div>
         </h1>
       </div>

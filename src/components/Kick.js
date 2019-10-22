@@ -18,6 +18,7 @@ class Kick extends React.Component {
             <div className="knob">
               <small className="fontColor">Attack</small>
               <Knob
+                data-id={"kickAttack"}
                 skin={skins.s16}
                 unlockDistance={30}
                 onChange={this.props.kickAttackHandler}
