@@ -24,6 +24,7 @@ class InstrumentsContainer extends React.Component {
       hh2Button: false,
       tomButton: false,
       presetName: "",
+      newPresetName: "808?",
       ///Kick params:::
       kickAttack: 0.001,
       kickDecay: 0.2,
@@ -132,11 +133,38 @@ class InstrumentsContainer extends React.Component {
     });
   };
 
+  handleKeyPress = e => {
+    switch (e.key) {
+      case "1":
+        this.kickHandler();
+        break;
+
+      case "2":
+        this.snareHandler();
+        break;
+
+      case "3":
+        this.tomHandler();
+        break;
+
+      case "4":
+        this.hH1Handler();
+        break;
+
+      case "5":
+        this.hH2Handler();
+        break;
+
+      default:
+        console.log("nada!");
+    }
+  };
+
   /// Kick methods::::
 
   kickAttackHandler = val => {
     this.setState({ kickAttack: val });
-    console.log(this.state.kickAttack);
+    // console.log(this.state.kickAttack);
   };
 
   kickDecayHandler = val => {
@@ -443,57 +471,6 @@ class InstrumentsContainer extends React.Component {
           hH2Harmonicity: data.hH2Harmonicity
         });
       });
-
-    // this.setState({
-    //   ///Kick params:::
-    //   kickAttack: this.state.kickAttack,
-    //   kickDecay: this.state.kickDecay,
-    //   kickSustain: this.state.kickSustain,
-    //   kickRelease: this.state.kickRelease,
-    //   kickPitchDecay: this.state.kickPitchDecay,
-    //   KickOscType: this.state.KickOscType,
-    //   kickNote: this.state.kickNote,
-    //   kickVolume: this.state.kickVolume,
-
-    //   ///Tom params:::
-    //   tomAttack: this.state.tomAttack,
-    //   tomDecay: this.state.tomDecay,
-    //   tomSustain: this.state.tomSustain,
-    //   tomRelease: this.state.tomRelease,
-    //   tomPitchDecay: this.state.tomPitchDecay,
-    //   tomOscType: this.state.tomOscType,
-    //   tomNote: this.state.tomNote,
-    //   tomVolume: this.state.tomVolume,
-    //   tomPan: this.state.tomPan,
-
-    //   ////Snare params::
-    //   snarePan: this.state.snarePan,
-    //   snareVolume: this.state.snareVolume,
-    //   snareAttack: this.state.snareAttack,
-    //   snareDecay: this.state.snareDecay,
-    //   snareSustain: this.state.snareSustain,
-    //   snareNoiseType: this.state.snareNoiseType,
-
-    //   /// Hihat1 params:::
-    //   hH1Pan: this.state.hH1Pan,
-    //   hH1Volume: this.state.hH1Volume,
-    //   hH1Attack: this.state.hH1Attack,
-    //   hH1Decay: this.state.hH1Decay,
-    //   hH1Release: this.state.hH1Release,
-    //   hH1Delay: this.state.hH1Delay,
-    //   hH1Resonance: this.state.hH1Resonance,
-    //   hH1Harmonicity: this.state.hH1Harmonicity,
-
-    //   /// Hihat2 params:::
-    //   hH2Pan: this.state.hH2Pan,
-    //   hH2Volume: this.state.hH2Volume,
-    //   hH2Attack: this.state.hH2Attack,
-    //   hH2Decay: this.state.hH2Decay,
-    //   hH2Release: this.state.hH2Release,
-    //   hH2Frequency: this.state.hH2Frequency,
-    //   hH2Resonance: this.state.hH2Resonance,
-    //   hH2Harmonicity: this.state.hH2Harmonicity
-    // });
   };
 
   inputChangeHandler = e => {
@@ -639,9 +616,18 @@ class InstrumentsContainer extends React.Component {
 
   render() {
     return (
-      <div>
+      <div onKeyPress={this.handleKeyPress}>
         <h1>
-          {this.state.newPresetName}
+          <div
+            style={{
+              marginBottom: "-47px",
+              fontFamily: "Bungee Shade",
+              fontSize: "40px"
+            }}
+          >
+            {this.state.newPresetName}
+          </div>
+
           <br />
           <div>
             <button
@@ -835,7 +821,7 @@ class InstrumentsContainer extends React.Component {
             >
               Cymbal
             </button>
-            <div className="mainCont">
+            <div className="mainCont" onKeyPress={this.handleKeyPress}>
               {this.state.kickButton ? (
                 <div className="container">
                   <div>

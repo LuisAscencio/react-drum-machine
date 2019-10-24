@@ -26,13 +26,11 @@ export default function PresetContainer(props) {
         <form>
           <button
             className="seqReset"
-            // onClick={this.triggerChildReset}
             type="button"
             style={{
               backgroundColor: "#CBCBCB",
               borderRadius: "3px",
-              // border: "none",
-              // color: "black",
+
               padding: "5px 5px",
               textAlign: "center",
               textDecoration: "none",
@@ -84,11 +82,7 @@ export default function PresetContainer(props) {
           >
             Load
           </button>
-          <select
-            id="select"
-            className="custom-select"
-            //   onChange={this.props.kickOscTypeHandler}
-          >
+          <select id="select" className="custom-select">
             {presets.map(preset => (
               <option key={preset.id} value={preset.id}>
                 {preset.presetName}

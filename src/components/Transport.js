@@ -11,7 +11,7 @@ class Trans extends React.Component {
     this.state = {
       reset: false,
       start: false,
-      bpm: 120
+      bpm: 250
       // swing: 0
     };
     this.style = {
@@ -85,19 +85,30 @@ class Trans extends React.Component {
             <i className="fa fa-play" style={this.colorG}></i>
           )}
         </button>
+        <button
+          className="wipe"
+          onClick={() => {
+            document.location.reload();
+          }}
+        >
+          Wipe
+        </button>
         <br />
         <br />
-        <small className="knobTempo"> Tempo</small>
-        <Knob
-          skin={skins.s16}
-          unlockDistance={30}
-          onChange={this.bpmHandler}
-          min={100}
-          max={300}
-          clampMax={180}
-          rotateDegrees={270}
-          value={this.state.bpm}
-        />
+
+        <div>
+          <Knob
+            skin={skins.s16}
+            unlockDistance={30}
+            onChange={this.bpmHandler}
+            min={100}
+            max={300}
+            clampMax={180}
+            rotateDegrees={270}
+            value={this.state.bpm}
+          />
+          <small className="knobTempo">BPM</small>
+        </div>
 
         {/* <small className="knobText">
           BMP {`${Math.trunc(this.state.bpm)}`}
@@ -121,6 +132,15 @@ class Trans extends React.Component {
         {/* time={this.state.currentBeat}  */}
         <br />
         <br />
+        {/* <button
+          className="wipe"
+          
+          onClick={() => {
+            document.location.reload();
+          }}
+        >
+          Wipe
+        </button> */}
       </div>
     );
   }

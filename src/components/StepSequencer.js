@@ -3,6 +3,7 @@ import { Transport } from "tone";
 import { Knob } from "react-rotary-knob";
 import * as skins from "react-rotary-knob-skin-pack";
 import Step from "./Step";
+import Firebase from "../Firebase";
 
 class StepSequencer extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class StepSequencer extends React.Component {
     this.state = {
       // arrayLength: Array(16).fill(1),
       val: 16,
+
       /// Background:::
       100: false,
       101: false,
@@ -55,6 +57,70 @@ class StepSequencer extends React.Component {
 
   resetHandler = () => {
     this.index = 0;
+  };
+
+  saveSequence = () => {
+    // console.log(this.state[0]);
+    // console.log(this.props.sequencer);
+    // debugger;
+    Firebase.firestore()
+      .collection(`${this.props.sequencer}`)
+      .doc(`${this.props.sequenceName}`)
+      .set({
+        count: this.count,
+        sequenceName: this.props.sequenceName,
+        val: this.state.val,
+        0: this.state[0],
+        1: this.state[1],
+        2: this.state[2],
+        3: this.state[3],
+        4: this.state[4],
+        5: this.state[5],
+        6: this.state[6],
+        7: this.state[7],
+        8: this.state[8],
+        9: this.state[9],
+        10: this.state[10],
+        11: this.state[11],
+        12: this.state[12],
+        13: this.state[13],
+        14: this.state[14],
+        15: this.state[15]
+      });
+  };
+
+  loadSequence = name => {
+    Firebase.firestore()
+      .collection(`${this.props.sequencer}`)
+      .doc(`${name}`)
+      .get()
+      .then(doc => {
+        // console.log(doc.data());
+        let data = doc.data();
+        // console.log(data[0]);
+        // debugger;
+        this.setState({
+          0: data[0],
+          1: data[1],
+          2: data[2],
+          3: data[3],
+          4: data[4],
+          5: data[5],
+          6: data[6],
+          7: data[7],
+          8: data[8],
+          9: data[9],
+          10: data[10],
+          11: data[11],
+          12: data[12],
+          13: data[13],
+          14: data[14],
+          15: data[15],
+          val: data.val
+        });
+        this.count = data.count;
+        this.index = 0;
+      });
   };
   ///Steps changes:::
   clickHandler = e => {

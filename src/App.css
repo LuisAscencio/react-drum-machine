@@ -71,12 +71,12 @@
   background-color: rgb(158, 225, 186);
 }
 .presetCard {
-  margin-top: -164px;
+  margin-top: -165px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border-radius: 5px; /* 5px rounded corners */
   width: 400px;
-  height: 155px;
+  height: 160px;
   background-color: rgb(63, 176, 172);
 }
 
@@ -116,7 +116,10 @@
 }
 .knobTempo {
   font-size: 9px;
-  padding: 11px;
+  padding: 15px;
+  padding-block-end: 15px;
+
+  position: relative;
 }
 
 .knob {
@@ -147,17 +150,16 @@
 }
 
 .seq {
-  margin-top: -43px;
+  margin-top: -58px;
 }
 
 .seqBox {
-  margin-top: -5px;
+  margin-top: 11px;
 }
 
 .seqReset {
   margin-left: 5px;
   color: "black";
-  backgroundcolor: "#CBCBCB";
 }
 .seqReset:active {
   margin-left: 5px;
@@ -188,6 +190,22 @@
   outline: 0;
 }
 
-.ocho {
-  background-image: "./D2115_73_581_1200.jpg";
+.seqControls {
+  margin-top: 15px;
+  margin-bottom: -10px;
+}
+
+.wipe {
+  background-color: #cbcbcb;
+  border-radius: 5px;
+  margin-left: 1220px;
+  padding: 5px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  /* margin: 4px 8px; */
+
+  cursor: pointer;
+  outline: 0;
 }
