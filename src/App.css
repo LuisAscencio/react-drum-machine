@@ -34,6 +34,7 @@
   transition: 0.3s;
   border-radius: 5px; /* 5px rounded corners */
   width: 200px;
+
   height: 380px;
   background-color: rgb(23, 62, 67);
 }

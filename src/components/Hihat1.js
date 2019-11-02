@@ -3,6 +3,14 @@ import { Knob } from "react-rotary-knob";
 import * as skins from "react-rotary-knob-skin-pack";
 
 class Hihat1 extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    if (this.props !== nextProps) {
+      return true;
+    }
+
+    return false;
+  }
+
   render() {
     return (
       <div className="App">

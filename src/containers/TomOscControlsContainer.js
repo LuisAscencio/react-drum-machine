@@ -13,6 +13,7 @@ const TomOscControlsContainer = props => {
           tomPitchDecay={props.tomPitchDecay}
           tomPitchDecayHandler={props.tomPitchDecayHandler}
           tomOscTypeHandler={props.tomOscTypeHandler}
+          tomOscType={props.tomOscType}
           tomNote={props.tomNote}
           tomNoteHandler={props.tomNoteHandler}
           tomVolume={props.tomVolume}

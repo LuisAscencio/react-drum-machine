@@ -52,10 +52,14 @@ class StepSequencer extends React.Component {
 
     Transport.scheduleRepeat(this.checkStep, "8n");
     this.index = 0;
+
     this.count = 15;
   }
 
   resetHandler = () => {
+    // this.setState({
+    //   [this.index + 99]: false
+    // });
     this.index = 0;
   };
 
@@ -143,6 +147,15 @@ class StepSequencer extends React.Component {
     //   arrayLength: newArray
     // });
     // console.log(newArray);
+
+    // this.setState({
+    //   [this.count + 99]: false,
+    //   [this.count + 100]: false,
+    //   [this.count + 101]: false,
+    //   [this.count + 102]: false,
+    //   [this.count + 103]: false,
+    //   [this.count + 104]: false
+    // });
   };
 
   checkStep = () => {
@@ -162,12 +175,10 @@ class StepSequencer extends React.Component {
       112: false,
       113: false,
       114: false,
-      115: false
-    });
-    this.setState({
-      [this.index + 100]: !this.state[this.index + 100]
-    });
+      115: false,
 
+      [this.index + 100]: true
+    });
     if (this.state[this.index] === true) {
       this.props.triggerHandler();
     }
@@ -219,11 +230,13 @@ class StepSequencer extends React.Component {
             .map((x, i) => {
               return (
                 <Step
+                  count={this.state.count}
                   key={i}
                   clickHandler={this.clickHandler}
                   id={i}
                   clicked={this.state[i]}
                   borderColor={this.state[i + 100]}
+                  bC={this.props.bC}
                   color={this.props.color}
                   mouse={this.props.mouse}
                   mouseChangeDown={this.props.mouseChangeDown}

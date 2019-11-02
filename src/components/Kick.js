@@ -4,13 +4,16 @@ import { Knob } from "react-rotary-knob";
 import * as skins from "react-rotary-knob-skin-pack";
 
 class Kick extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    if (this.props !== nextProps) {
+      return true;
+    }
+
+    return false;
+  }
   render() {
     return (
       <div className="App">
-        {/* <button type="button" onClick={this.props.kickHandler}>
-          Kick
-        </button> */}
-
         {this.props.knobs === "envelope" ? (
           <div>
             {/* Attack Knob:: */}
@@ -77,7 +80,7 @@ class Kick extends React.Component {
         ) : null}
 
         {this.props.knobs === "osc" ? (
-          <div>
+          <div style={{ marginLeft: "3px" }}>
             {/* Pitch Decay Knob:: */}
 
             <div className="knob">
@@ -97,6 +100,7 @@ class Kick extends React.Component {
             {/* Oscillator type menu */}
             <div>
               <select
+                value={`${this.props.KickOscType}`}
                 className="custom-select"
                 onChange={this.props.kickOscTypeHandler}
               >

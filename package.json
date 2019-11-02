@@ -7,6 +7,7 @@
     "firebase": "^7.2.1",
     "granular-js": "^0.6.0",
     "notefromfreq": "^1.0.0",
+    "pts": "^0.8.10",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-rotary-knob": "^1.1.7",

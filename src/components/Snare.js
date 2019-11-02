@@ -3,6 +3,14 @@ import { Knob } from "react-rotary-knob";
 import * as skins from "react-rotary-knob-skin-pack";
 
 class Snare extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    if (this.props !== nextProps) {
+      return true;
+    }
+
+    return false;
+  }
+
   render() {
     return (
       <div className="App">
@@ -66,7 +74,7 @@ class Snare extends React.Component {
                 unlockDistance={30}
                 onChange={this.props.snareVolHandler}
                 min={-10}
-                max={10}
+                max={15}
                 clampMax={180}
                 rotateDegrees={270}
                 value={this.props.snareVolume}
@@ -76,7 +84,7 @@ class Snare extends React.Component {
             {/* Noise type menu */}
             <div>
               <select
-                defaultValue="brown"
+                value={`${this.props.snareNoiseType}`}
                 className="custom-select"
                 onChange={this.props.snareNoiseTypeHandler}
               >

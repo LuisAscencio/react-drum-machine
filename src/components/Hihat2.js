@@ -3,6 +3,14 @@ import { Knob } from "react-rotary-knob";
 import * as skins from "react-rotary-knob-skin-pack";
 
 class Hihat2 extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    if (this.props !== nextProps) {
+      return true;
+    }
+
+    return false;
+  }
+
   render() {
     return (
       <div className="App">
@@ -113,7 +121,7 @@ class Hihat2 extends React.Component {
                 unlockDistance={30}
                 onChange={this.props.hH2FrequencyHandler}
                 min={0}
-                max={0.5}
+                max={600}
                 clampMax={180}
                 rotateDegrees={270}
                 value={this.props.hH2Frequency}

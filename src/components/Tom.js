@@ -4,6 +4,14 @@ import { Knob } from "react-rotary-knob";
 import * as skins from "react-rotary-knob-skin-pack";
 
 class Tom extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    if (this.props !== nextProps) {
+      return true;
+    }
+
+    return false;
+  }
+
   render() {
     return (
       <div className="App">
@@ -92,6 +100,7 @@ class Tom extends React.Component {
             {/* Oscillator type menu */}
             <div>
               <select
+                value={`${this.props.tomOscType}`}
                 className="custom-select"
                 onChange={this.props.tomOscTypeHandler}
               >

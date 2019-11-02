@@ -14,11 +14,11 @@ import PresetContainer from "./PresetContainer";
 import SequencerContainer from "./SequencerContainer";
 import Firebase from "../Firebase";
 
-class InstrumentsContainer extends React.Component {
+class InstrumentsContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      kickButton: false,
+      kickButton: true,
       snareButton: false,
       hh1Button: false,
       hh2Button: false,
@@ -66,7 +66,7 @@ class InstrumentsContainer extends React.Component {
 
       /// Hihat2 params:::
       hH2Pan: 0.5,
-      hH2Volume: -20,
+      hH2Volume: -15,
       hH2Attack: 0.05,
       hH2Decay: 0.1,
       hH2Release: 0.1,
@@ -321,7 +321,7 @@ class InstrumentsContainer extends React.Component {
 
   hH2VolumeHandler = val => {
     this.setState({ hH2Volume: val });
-    // console.log(this.state.hH1Volume);
+    console.log(this.state.hH2Volume);
   };
 
   hH2AttackHandler = val => {
@@ -418,7 +418,7 @@ class InstrumentsContainer extends React.Component {
       .then(doc => {
         console.log(doc.data());
         let data = doc.data();
-        console.log(data.kickAttack);
+        console.log("hh2volume", data.hH2Volume);
 
         this.setState({
           newPresetName: data.presetName,
@@ -484,7 +484,7 @@ class InstrumentsContainer extends React.Component {
   kickHandler = () => {
     window.kick = new Tone.MembraneSynth().toMaster();
     /// Envelope params::
-
+    // console.log(Tone.prototype.dispose(this));
     window.kick.envelope.attack = this.state.kickAttack;
     window.kick.envelope.decay = this.state.kickDecay;
     window.kick.envelope.sustain = this.state.kickSustain;
@@ -508,6 +508,8 @@ class InstrumentsContainer extends React.Component {
 
     // console.log(foundNote);
     window.kick.triggerAttackRelease(window.foundNote, "8n");
+
+    Tone.prototype.dispose.call(this);
     delete window.kick;
     delete window.frequency;
 
@@ -523,13 +525,15 @@ class InstrumentsContainer extends React.Component {
 
     window.snare = new Tone.NoiseSynth({}).connect(window.snarePan);
 
-    // this.kickContainer.snare.volume.value = this.state.snareVolume;
+    window.snare.volume.value = this.state.snareVolume;
     window.snarePan.pan.value = this.state.snarePan;
     window.snare.noise.type = this.state.snareNoiseType;
     window.snare.envelope.attack = this.state.snareAttack;
     window.snare.envelope.decay = this.state.snareDecay;
     window.snare.envelope.sustain = this.state.snareSustain;
     window.snare.triggerAttackRelease("8n");
+    Tone.prototype.dispose.call(this);
+
     delete window.snarePan;
     delete window.snare;
   };
@@ -565,6 +569,7 @@ class InstrumentsContainer extends React.Component {
     // console.log(foundNote);
     // debugger;
     window.tom.triggerAttackRelease(window.tomFoundNote, "8n");
+    Tone.prototype.dispose.call(this);
 
     delete window.tomPan;
     delete window.tom;
@@ -590,6 +595,7 @@ class InstrumentsContainer extends React.Component {
     window.hH1.resonance = this.state.hH1Resonance;
     window.hH1.harmonicity = this.state.hH1Harmonicity;
     window.hH1.triggerAttackRelease("8n");
+    Tone.prototype.dispose.call(this);
 
     delete window.hH1Pan;
     delete window.pinPong;
@@ -609,6 +615,7 @@ class InstrumentsContainer extends React.Component {
     window.hH2.resonance = this.state.hH2Resonance;
     window.hH2.harmonicity = this.state.hH2Harmonicity;
     window.hH2.triggerAttackRelease("8n");
+    Tone.prototype.dispose.call(this);
 
     delete window.hH2Pan;
     delete window.hH2;
@@ -618,6 +625,8 @@ class InstrumentsContainer extends React.Component {
     return (
       <div onKeyPress={this.handleKeyPress}>
         <h1>
+          {/* <canvas id="hello"><canvas/> */}
+          {/* <div className="hello"> </div> */}
           <div
             style={{
               marginBottom: "-47px",
@@ -846,6 +855,7 @@ class InstrumentsContainer extends React.Component {
                       kickPitchDecay={this.state.kickPitchDecay}
                       kickPitchDecayHandler={this.kickPitchDecayHandler}
                       kickOscTypeHandler={this.kickOscTypeHandler}
+                      KickOscType={this.state.KickOscType}
                       kickNote={this.state.kickNote}
                       kickNoteHandler={this.kickNoteHandler}
                       kickVolume={this.state.kickVolume}
@@ -876,6 +886,7 @@ class InstrumentsContainer extends React.Component {
                       snarePan={this.state.snarePan}
                       snarePanHandler={this.snarePanHandler}
                       snareNoiseTypeHandler={this.snareNoiseTypeHandler}
+                      snareNoiseType={this.state.snareNoiseType}
                       snareVolume={this.state.snareVolume}
                       snareVolHandler={this.snareVolHandler}
                     />
@@ -907,6 +918,7 @@ class InstrumentsContainer extends React.Component {
                       tomPitchDecay={this.state.tomPitchDecay}
                       tomPitchDecayHandler={this.tomPitchDecayHandler}
                       tomOscTypeHandler={this.tomOscTypeHandler}
+                      tomOscType={this.state.tomOscType}
                       tomNote={this.state.tomNote}
                       tomNoteHandler={this.tomNoteHandler}
                       tomVolume={this.state.tomVolume}
@@ -975,7 +987,7 @@ class InstrumentsContainer extends React.Component {
                     <Hh2OscContainer
                       hH2Pan={this.state.hH2Pan}
                       hH2PanHandler={this.hH2PanHandler}
-                      hH1Volume={this.state.hH2Volume}
+                      hH2Volume={this.state.hH2Volume}
                       hH2VolumeHandler={this.hH2VolumeHandler}
                       hH2Frequency={this.state.hH2Frequency}
                       hH2FrequencyHandler={this.hH2FrequencyHandler}
@@ -1015,6 +1027,7 @@ class InstrumentsContainer extends React.Component {
                       kickPitchDecay={this.state.kickPitchDecay}
                       kickPitchDecayHandler={this.kickPitchDecayHandler}
                       kickOscTypeHandler={this.kickOscTypeHandler}
+                      KickOscType={this.state.KickOscType}
                       kickNote={this.state.kickNote}
                       kickNoteHandler={this.kickNoteHandler}
                       kickVolume={this.state.kickVolume}

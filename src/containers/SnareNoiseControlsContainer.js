@@ -15,6 +15,7 @@ const SnareNoiseControlsContainer = props => {
           snareNoiseTypeHandler={props.snareNoiseTypeHandler}
           snareVolume={props.snareVolume}
           snareVolHandler={props.snareVolHandler}
+          snareNoiseType={props.snareNoiseType}
         />
       </div>
     </div>

@@ -13,6 +13,7 @@ const KickOscControlsContainer = props => {
           kickPitchDecay={props.kickPitchDecay}
           kickPitchDecayHandler={props.kickPitchDecayHandler}
           kickOscTypeHandler={props.kickOscTypeHandler}
+          KickOscType={props.KickOscType}
           kickNote={props.kickNote}
           kickNoteHandler={props.kickNoteHandler}
           kickVolume={props.kickVolume}

@@ -74,6 +74,16 @@ class SequencerContainer extends React.Component {
       });
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props !== nextProps) {
+      return true;
+    }
+    if (this.state !== nextState) {
+      return true;
+    }
+    return false;
+  }
+
   render() {
     // console.log("rendering");
     return (
@@ -198,6 +208,7 @@ class SequencerContainer extends React.Component {
             ref="child1"
             sequencer="Kick sequencer"
             color={"4px solid rgb(23, 62, 67)"}
+            bC={"rgb(23, 62, 67)"}
             mouse={this.state.mouse}
             sequenceName={this.state.sequenceName}
           />
@@ -208,6 +219,7 @@ class SequencerContainer extends React.Component {
             ref="child2"
             sequencer="Snare sequencer"
             color={"4px solid rgb(250, 229, 150)"}
+            bC={"rgb(250, 229, 150)"}
             mouse={this.state.mouse}
             sequenceName={this.state.sequenceName}
           />
@@ -217,6 +229,7 @@ class SequencerContainer extends React.Component {
             ref="child3"
             sequencer="Tom sequencer"
             color={"4px solid rgb(142, 83, 120)"}
+            bC={"rgb(142, 83, 120)"}
             mouse={this.state.mouse}
             sequenceName={this.state.sequenceName}
           />
@@ -227,6 +240,7 @@ class SequencerContainer extends React.Component {
             ref="child4"
             sequencer="Hh1 sequencer"
             color={"4px solid rgb(63, 176, 172)"}
+            bC={"rgb(63, 176, 172)"}
             mouse={this.state.mouse}
             sequenceName={this.state.sequenceName}
           />
@@ -237,6 +251,7 @@ class SequencerContainer extends React.Component {
             ref="child5"
             sequencer="Hh2 sequencer"
             color={"4px solid rgb(158, 225, 186)"}
+            bC={"rgb(158, 225, 186)"}
             mouse={this.state.mouse}
             sequenceName={this.state.sequenceName}
           />

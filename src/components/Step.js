@@ -8,17 +8,44 @@ class Step extends React.Component {
     }
   };
 
+  shouldComponentUpdate(nextProps) {
+    if (this.props.borderColor !== nextProps.borderColor) {
+      return true;
+    }
+    if (this.props.clicked !== nextProps.clicked) {
+      return true;
+    }
+    return false;
+  }
+
   render() {
     let style = {
-      width: "35px",
+      width: "36px",
       height: "60px",
-
+      // border: this.props.borderColor ? ` ${this.props.color}` : "5px hidden ",
       backgroundColor: this.props.clicked ? "#6b6e6e" : "#CBCBCB",
-      border: this.props.borderColor
-        ? `${this.props.color}`
-        : "3px solid white",
+      position: "relative",
       borderRadius: "10px",
       margin: 5,
+      marginLeft: "10px",
+      // zIndex: "3",
+      display: "inline-block",
+      opacity: "100%"
+    };
+
+    let style2 = {
+      width: "48px",
+      height: "71px",
+      // border: this.props.borderColor ? ` ${this.props.color}` : "5px hidden ",
+      backgroundColor: `${this.props.bC}`,
+      opacity: this.props.borderColor ? "100%" : "0%",
+      position: "absolute",
+      top: "-18%",
+      left: "-45%",
+      borderRadius: "10px",
+      margin: 5,
+      zIndex: "-1",
+      marginLeft: "10px",
       display: "inline-block"
     };
 
@@ -28,7 +55,9 @@ class Step extends React.Component {
         style={style}
         onClick={this.props.clickHandler}
         onMouseOver={this.handleMouse}
-      ></div>
+      >
+        <div style={style2}></div>
+      </div>
     );
   }
 }
