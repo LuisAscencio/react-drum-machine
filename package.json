@@ -12,7 +12,7 @@
     "react-dom": "^16.10.2",
     "react-rotary-knob": "^1.1.7",
     "react-rotary-knob-skin-pack": "git+https://github.com/hugozap/react-rotary-knob-skin-pack.git",
-    "react-scripts": "3.2.0",
+    "react-scripts": "5.0.1",
     "tone": "^13.8.25"
   },
   "scripts": {
